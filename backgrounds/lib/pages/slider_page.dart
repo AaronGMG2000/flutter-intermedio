@@ -5,8 +5,38 @@ class SliderPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: _MainScroll(),
+    return Scaffold(
+      body: Stack(
+        children: const [_MainScroll(), Positioned(bottom: 0, right: 0, child: _BotonNewList())],
+      ),
+    );
+  }
+}
+
+class _BotonNewList extends StatelessWidget {
+  const _BotonNewList({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
+    return ButtonTheme(
+      child: ElevatedButton(
+          onPressed: () {},
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(const Color(0xffED6762)),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(50)))),
+          ),
+          child: SizedBox(
+            height: size.height * 0.1,
+            width: size.width * 0.7,
+            child: const Center(
+                child: Text(
+              'CREATE NEW LIST',
+              style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold, letterSpacing: 2),
+            )),
+          )),
     );
   }
 }
@@ -30,9 +60,18 @@ class _MainScroll extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       slivers: [
         SliverPersistentHeader(
-            delegate: _SliverCustomHeaderDelegate(minHeight: 200, maxHeight: 250, child: const _Titulo()),
-            floating: true),
-        SliverList(delegate: SliverChildListDelegate(items)),
+          delegate: _SliverCustomHeaderDelegate(
+            minHeight: 170,
+            maxHeight: 200,
+            child: Container(
+              alignment: Alignment.centerLeft,
+              color: Colors.white,
+              child: const _Titulo(),
+            ),
+          ),
+          floating: true,
+        ),
+        SliverList(delegate: SliverChildListDelegate([...items, const SizedBox(height: 100)])),
       ],
     );
   }

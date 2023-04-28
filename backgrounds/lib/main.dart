@@ -5,20 +5,29 @@
 // import 'package:backgrounds/pages/slideshow_page.dart';
 // import 'package:backgrounds/pages/pinteres_page.dart';
 // import 'package:backgrounds/pages/emergency_page.dart';
-import 'package:backgrounds/pages/slider_page.dart';
+import 'package:backgrounds/pages/launcher_page.dart';
+import 'package:backgrounds/theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(
+      ChangeNotifierProvider(
+        create: (context) => ThemeChanger(2),
+        child: const MyApp(),
+      ),
+    );
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    final themeChanger = Provider.of<ThemeChanger>(context);
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Material App',
-      home: SliderPage(),
+      theme: themeChanger.currentTheme,
+      home: const LauncherPage(),
     );
   }
 }
