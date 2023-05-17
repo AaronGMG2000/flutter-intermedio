@@ -43,7 +43,13 @@ class ThemeChanger with ChangeNotifier {
     if (_dartTheme) {
       return ThemeData.dark();
     } else if (_customTheme) {
-      return ThemeData.light();
+      return ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: const Color(0xff16202B),
+        colorScheme: const ColorScheme.light().copyWith(secondary: const Color(0xff48A0EB)),
+        primaryColorLight: Colors.white,
+        appBarTheme: const AppBarTheme(backgroundColor: Color(0xff16202B)),
+        textTheme: const TextTheme(bodyLarge: TextStyle(color: Colors.white)),
+      );
     } else {
       return ThemeData.light();
     }

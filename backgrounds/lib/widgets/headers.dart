@@ -1,4 +1,6 @@
+import 'package:backgrounds/theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HeaderCuadrado extends StatelessWidget {
   const HeaderCuadrado({Key? key}) : super(key: key);
@@ -20,8 +22,7 @@ class HeaderCircular extends StatelessWidget {
     return Container(
       height: 300,
       decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(70), bottomRight: Radius.circular(70)),
+        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(70), bottomRight: Radius.circular(70)),
         color: Color(0xff615AAB),
       ),
     );
@@ -158,8 +159,7 @@ class _HeaderCurvoPainter extends CustomPainter {
     paint.strokeWidth = 5;
     final path = Path();
     path.lineTo(0, size.height * 0.25);
-    path.quadraticBezierTo(
-        size.width * 0.5, size.height * 0.40, size.width, size.height * 0.25);
+    path.quadraticBezierTo(size.width * 0.5, size.height * 0.40, size.width, size.height * 0.25);
     path.lineTo(size.width, 0);
     canvas.drawPath(path, paint);
   }
@@ -175,37 +175,30 @@ class HeaderWaves extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
     return SizedBox(
       height: double.infinity,
       width: double.infinity,
       child: CustomPaint(
-        painter: _HeaderWavesPainter(),
+        painter: _HeaderWavesPainter(appTheme.colorScheme.secondary),
       ),
     );
   }
 }
 
 class _HeaderWavesPainter extends CustomPainter {
+  final Color color;
+  _HeaderWavesPainter(this.color);
   @override
   void paint(Canvas canvas, Size size) {
-    const Gradient gradiente = LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: [
-          Color(0xff6D05E8),
-          Color(0xffC012FF),
-          Color(0xff6D05FA),
-        ]);
-    final Rect rect = Rect.fromCircle(center: const Offset(0, 55), radius: 180);
-    final paint = Paint()..shader = gradiente.createShader(rect);
+    final paint = Paint();
+    paint.color = color;
     paint.style = PaintingStyle.fill;
     paint.strokeWidth = 5;
     final path = Path();
     path.lineTo(0, size.height * 0.25);
-    path.quadraticBezierTo(size.width * 0.25, size.height * 0.30,
-        size.width * 0.5, size.height * 0.25);
-    path.quadraticBezierTo(
-        size.width * 0.75, size.height * 0.20, size.width, size.height * 0.25);
+    path.quadraticBezierTo(size.width * 0.25, size.height * 0.30, size.width * 0.5, size.height * 0.25);
+    path.quadraticBezierTo(size.width * 0.75, size.height * 0.20, size.width, size.height * 0.25);
     path.lineTo(size.width, 0);
     canvas.drawPath(path, paint);
   }

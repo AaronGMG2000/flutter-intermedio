@@ -1,4 +1,6 @@
+import 'package:backgrounds/theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SliderPage extends StatelessWidget {
   const SliderPage({Key? key}) : super(key: key);
@@ -19,22 +21,28 @@ class _BotonNewList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
+    final appTheme = Provider.of<ThemeChanger>(context);
     return ButtonTheme(
       child: ElevatedButton(
           onPressed: () {},
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(const Color(0xffED6762)),
+            backgroundColor: MaterialStateProperty.all<Color>(
+              appTheme.dartTheme ? appTheme.currentTheme.colorScheme.secondary : const Color(0xffED6762),
+            ),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                 const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(50)))),
           ),
           child: SizedBox(
             height: size.height * 0.1,
             width: size.width * 0.7,
-            child: const Center(
+            child: Center(
                 child: Text(
               'CREATE NEW LIST',
-              style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold, letterSpacing: 2),
+              style: TextStyle(
+                  color: appTheme.currentTheme.scaffoldBackgroundColor,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 2),
             )),
           )),
     );
@@ -46,15 +54,17 @@ class _MainScroll extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChanger>(context);
     final items = [
-      const _ListItem('Orange', Color(0xffF08F66)),
-      const _ListItem('Family', Color(0xffF2A38A)),
-      const _ListItem('Subscriptions', Color(0xffF7CDD5)),
-      const _ListItem('Books', Color(0xffFCEBAF)),
-      const _ListItem('Orange', Color(0xffF08F66)),
-      const _ListItem('Family', Color(0xffF2A38A)),
-      const _ListItem('Subscriptions', Color(0xffF7CDD5)),
-      const _ListItem('Books', Color(0xffFCEBAF)),
+      _ListItem('Orange', appTheme.dartTheme ? const Color.fromARGB(255, 252, 99, 34) : const Color(0xffF08F66)),
+      _ListItem('Family', appTheme.dartTheme ? const Color.fromARGB(255, 239, 91, 46) : const Color(0xffF2A38A)),
+      _ListItem(
+          'Subscriptions', appTheme.dartTheme ? const Color.fromARGB(255, 245, 67, 100) : const Color(0xffF7CDD5)),
+      _ListItem('Books', appTheme.dartTheme ? const Color.fromARGB(255, 254, 208, 40) : const Color(0xffFCEBAF)),
+      _ListItem('Orange', appTheme.dartTheme ? const Color.fromARGB(255, 255, 117, 58) : const Color(0xffF08F66)),
+      _ListItem('Family', appTheme.dartTheme ? const Color.fromARGB(255, 249, 114, 73) : const Color(0xffF2A38A)),
+      _ListItem('Subscriptions', appTheme.dartTheme ? const Color.fromARGB(255, 251, 46, 83) : const Color(0xffF7CDD5)),
+      _ListItem('Books', appTheme.dartTheme ? const Color.fromARGB(255, 221, 179, 27) : const Color(0xffFCEBAF)),
     ];
     return CustomScrollView(
       physics: const BouncingScrollPhysics(),
@@ -65,7 +75,7 @@ class _MainScroll extends StatelessWidget {
             maxHeight: 200,
             child: Container(
               alignment: Alignment.centerLeft,
-              color: Colors.white,
+              color: appTheme.currentTheme.scaffoldBackgroundColor,
               child: const _Titulo(),
             ),
           ),
@@ -102,12 +112,17 @@ class _Titulo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChanger>(context);
     return Column(
       children: [
         const SizedBox(height: 30),
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-          child: const Text('New', style: TextStyle(color: Color(0xff532128), fontSize: 50)),
+          child: Text('New',
+              style: TextStyle(
+                color: appTheme.dartTheme ? Colors.grey : const Color(0xff532128),
+                fontSize: 50,
+              )),
         ),
         Stack(
           children: [
@@ -117,7 +132,7 @@ class _Titulo extends StatelessWidget {
               child: Container(
                 width: 150,
                 height: 8,
-                decoration: const BoxDecoration(color: Color(0xffF7CDD5)),
+                color: appTheme.dartTheme ? Colors.grey : const Color(0xffF7CDD5),
               ),
             ),
             const Text(

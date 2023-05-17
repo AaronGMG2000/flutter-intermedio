@@ -6,6 +6,7 @@
 // import 'package:backgrounds/pages/pinteres_page.dart';
 // import 'package:backgrounds/pages/emergency_page.dart';
 import 'package:backgrounds/pages/launcher_page.dart';
+import 'package:backgrounds/pages/launcher_page_tablet.dart';
 import 'package:backgrounds/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +28,16 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Material App',
       theme: themeChanger.currentTheme,
-      home: const LauncherPage(),
+      home: OrientationBuilder(
+        builder: (BuildContext context, Orientation orientation) {
+          final screenSize = MediaQuery.of(context).size;
+          if (screenSize.width > 500) {
+            return const LauncherPageTablet();
+          } else {
+            return const LauncherPage();
+          }
+        },
+      ),
     );
   }
 }
