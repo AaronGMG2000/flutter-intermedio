@@ -5,6 +5,7 @@
 // import 'package:backgrounds/pages/slideshow_page.dart';
 // import 'package:backgrounds/pages/pinteres_page.dart';
 // import 'package:backgrounds/pages/emergency_page.dart';
+import 'package:backgrounds/models/layout_model.dart';
 import 'package:backgrounds/pages/launcher_page.dart';
 import 'package:backgrounds/pages/launcher_page_tablet.dart';
 import 'package:backgrounds/theme/theme.dart';
@@ -12,8 +13,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(
-      ChangeNotifierProvider(
-        create: (context) => ThemeChanger(2),
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => ThemeChanger(2)),
+          ChangeNotifierProvider(create: (context) => LayoutModel()),
+        ],
         child: const MyApp(),
       ),
     );

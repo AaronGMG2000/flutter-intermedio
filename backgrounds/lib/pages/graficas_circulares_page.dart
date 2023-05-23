@@ -30,12 +30,14 @@ class _GraficasCircularPageState extends State<GraficasCircularPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               _CustomRadialProgress(porcentaje, Colors.blue, Colors.grey, 10, 4),
               _CustomRadialProgress(porcentaje * 1.2, Colors.amber, Colors.grey, 10, 4),
             ],
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               _CustomRadialProgress(porcentaje * 1.4, Colors.indigo, Colors.grey, 10, 4),
               _CustomRadialProgress(porcentaje * 1.6, Colors.orange, Colors.grey, 10, 4),

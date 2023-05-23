@@ -1,3 +1,4 @@
+import 'package:backgrounds/models/layout_model.dart';
 import 'package:backgrounds/routes/routes.dart';
 import 'package:backgrounds/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -11,12 +12,23 @@ class LauncherPageTablet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final layoutModel = Provider.of<LayoutModel>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Diseños en Flutter - Tablet'),
       ),
       drawer: const _MenuPrincipal(),
-      body: const _ListaOpciones(),
+      body: Row(
+        children: [
+          const SizedBox(width: 300, height: double.infinity, child: _ListaOpciones()),
+          Container(
+            width: 1,
+            height: double.infinity,
+            color: Provider.of<ThemeChanger>(context).currentTheme.colorScheme.secondary,
+          ),
+          Expanded(child: layoutModel.currentPage),
+        ],
+      ),
     );
   }
 }
@@ -35,7 +47,7 @@ class _ListaOpciones extends StatelessWidget {
         leading: FaIcon(pageRoutes[index].icon, color: theme.colorScheme.secondary),
         title: Text(pageRoutes[index].title),
         trailing: Icon(Icons.chevron_right, color: theme.primaryColorLight),
-        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => pageRoutes[index].page)),
+        onTap: () => Provider.of<LayoutModel>(context, listen: false).currentPage = pageRoutes[index].page,
       ),
     );
   }

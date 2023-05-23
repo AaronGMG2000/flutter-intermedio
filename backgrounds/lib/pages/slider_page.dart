@@ -7,9 +7,9 @@ class SliderPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Stack(
-        children: const [_MainScroll(), Positioned(bottom: 0, right: 0, child: _BotonNewList())],
+        children: [_MainScroll(), Positioned(bottom: 0, right: 0, child: _BotonNewList())],
       ),
     );
   }

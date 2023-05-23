@@ -11,9 +11,9 @@ class PinteresPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => _MenuModel(),
-      child: Scaffold(
+      child: const Scaffold(
         body: Stack(
-          children: const [
+          children: [
             _PinterestGrid(),
             _PinterestMenuLocation(),
           ],
